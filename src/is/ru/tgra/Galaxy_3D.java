@@ -269,9 +269,9 @@ public class Galaxy_3D implements ApplicationListener, InputProcessor {
 			Gdx.gl11.glPushMatrix();
 			
 				// ekki að gera sig. öll model sem ég prófa (nema Batman) fokkast upp
-				//Gdx.gl11.glTranslatef(20.0f, 1.5f, 0);
-				//model.render();
-				//Gdx.gl11.glTranslatef(-20.0f, -1.5f, 0);
+				//Gdx.gl11.glTranslatef(20.0f, 0.0f, 15.0f);
+				model.render();
+				//Gdx.gl11.glTranslatef(-20.0f, 0.0f, -15.0f);
 					
 				
 				// rotate planet around origin, the sun
@@ -360,7 +360,7 @@ public class Galaxy_3D implements ApplicationListener, InputProcessor {
 				
 				// SATURN AND IT'S RINGS
 				Gdx.gl11.glDisable(GL11.GL_LIGHTING);
-				Gdx.gl11.glTranslatef(-5.0f, 30.0f, 0.0f);
+				Gdx.gl11.glTranslatef(-5.0f, 40.0f, 0.0f);
 				Gdx.gl11.glScalef(9.449f, 9.449f, 9.449f);
 				saturn.draw();
 				Gdx.gl11.glScalef(4.5f, 4.5f, 4.5f);
