@@ -1,0 +1,44 @@
+# File produced by Open Asset Import Library (http://www.assimp.sf.net)
+# (assimp v3.0.1270)
+
+newmtl spstob_1
+kd 0.584314 0.584314 0.584314
+ka 0.784314 0.784314 0.784314
+ks 0.898039 0.898039 0.898039
+d 1
+illum 1
+map_kd spstob_1.bmp
+
+newmtl spstob_3
+kd 0.584314 0.584314 0.584314
+ka 0.784314 0.784314 0.784314
+ks 0.898039 0.898039 0.898039
+d 1
+illum 1
+map_kd spstob_3.bmp
+
+newmtl spstob_4
+kd 0.584314 0.584314 0.584314
+ka 0.784314 0.784314 0.784314
+ks 0.898039 0.898039 0.898039
+d 1
+Ns 40
+illum 2
+map_kd spstob_4.bmp
+
+newmtl spstob_2
+kd 0.584314 0.584314 0.584314
+ka 0.784314 0.784314 0.784314
+ks 0.898039 0.898039 0.898039
+d 1
+illum 1
+map_kd spstob_2.bmp
+
+newmtl spstob_eal_1
+kd 0.584314 0.584314 0.584314
+ka 0.784314 0.784314 0.784314
+ks 0.898039 0.898039 0.898039
+d 1
+illum 1
+map_kd spstob_e.bmp
+
