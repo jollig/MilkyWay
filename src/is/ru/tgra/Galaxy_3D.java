@@ -94,7 +94,7 @@ public class Galaxy_3D implements ApplicationListener, InputProcessor {
 		vertexBuffer.rewind();
 
 		Gdx.gl11.glVertexPointer(3, GL11.GL_FLOAT, 0, vertexBuffer);
-		cam = new Camera(new Point3D(13.0f, 2.0f, 0.0f), new Point3D(2.0f, 3.0f, 3.0f), new Vector3D(0.0f, 1.0f, 0.0f));
+		cam = new Camera(new Point3D(19.5f, -30.0f, -7.0f), new Point3D(2.0f, 3.0f, 3.0f), new Vector3D(0.0f, 1.0f, 0.0f));
 		//cam = new Camera(new Point3D(0.0f, 0.0f, 0.0f), new Point3D(2.0f, 3.0f, 3.0f), new Vector3D(0.0f, 1.0f, 0.0f));
 		//cam = new Camera(new Point3D(1.5f, 2.5f, 1.5f), new Point3D(2.5f, 2.5f, 2.5f), new Vector3D(0.0f, 1.0f, 0.0f));
 		
@@ -220,15 +220,20 @@ public class Galaxy_3D implements ApplicationListener, InputProcessor {
 		// veit ekkert hvað þetta gerir - skoða seinna
 		//Gdx.gl11.glLightfv(GL11.GL_LIGHT2, GL11.GL_AMBIENT, new float[] { 0.2f, 0.2f, 0.2f, 1.0f }, 0);
 		
+		/**
+		 * Moving and scaling
+		 * Everthing starts at origin at 1/1 scale. This procedure is used when drawing and positioning objects:
+		 * Moving, scaling, drawing, re-scaling, moving to origin - repeat as needed
+		 */
 		Gdx.gl11.glPushMatrix();
-			// sun drawn without lighting so it can be illuminated and give the effecto of a light source in our galaxy		
+			// sun drawn without lighting so it can be illuminated and give the effect of a light source in the center of our galaxy		
 			Gdx.gl11.glDisable(GL11.GL_LIGHTING);
-			//Gdx.gl11.glTranslatef(0f, 0f, 0f);
+			
+			// scale before drawing the sun making it "bigger"
 			Gdx.gl11.glScalef(10.9f, 10.9f, 10.9f);
-			//Gdx.gl11.glRotatef(rotate_angle, 1, 1, 1);
 			sun.draw();
 			
-			// scale down to original sizes
+			// scale down to original size
 			Gdx.gl11.glScalef(0.092f, 0.092f, 0.092f);
 			
 			// not working properly - the idea is to make the universe follow the camera to appear still (affects all the rest)
@@ -237,12 +242,12 @@ public class Galaxy_3D implements ApplicationListener, InputProcessor {
 			//Gdx.gl11.glTranslatef(0, 0, 0);
 			
 			// scale up to draw the universe
-			Gdx.gl11.glScalef(50.0f, 50.0f, 50.0f);
+			Gdx.gl11.glScalef(60.0f, 60.0f, 60.0f);
 			stars.draw();
 			// scale back down to original size
-			Gdx.gl11.glScalef(0.02f, 0.02f, 0.02f);
+			Gdx.gl11.glScalef(0.017f, 0.017f, 0.017f);
 			
-			// lighting enabled
+			// lighting enabled to make dark side of planets facing away from the sun
 			Gdx.gl11.glEnable(GL11.GL_LIGHTING);
 			
 			// Configure light 0
@@ -255,13 +260,14 @@ public class Galaxy_3D implements ApplicationListener, InputProcessor {
 			Gdx.gl11.glLightfv(GL11.GL_LIGHT0, GL11.GL_AMBIENT, lightAmbience, 0);
 			
 			// Configure light 1
-			// a faint light is also positioned behind earth. this gives an effect of night lights in cities in North America for example
+			// a faint light is positioned behind earth. this gives effect of night lights being visible in cities in North America e.g.
 			float[] lightDiffuse1 = {0.1f, 0.1f, 0.1f, 1.0f};
 			Gdx.gl11.glLightfv(GL11.GL_LIGHT1, GL11.GL_DIFFUSE, lightDiffuse1, 0);
 			float[] lightPosition1 = {50.0f, 0.0f, 0.0f, 0f};
 			Gdx.gl11.glLightfv(GL11.GL_LIGHT1, GL11.GL_POSITION, lightPosition1, 0);
 			
-			Gdx.gl11.glPushMatrix();				
+			Gdx.gl11.glPushMatrix();
+			
 				// ekki að gera sig. öll model sem ég prófa (nema Batman) fokkast upp
 				//Gdx.gl11.glTranslatef(20.0f, 1.5f, 0);
 				//model.render();
@@ -271,65 +277,94 @@ public class Galaxy_3D implements ApplicationListener, InputProcessor {
 				// rotate planet around origin, the sun
 				// find a way to stop the rest from spinning
 				//Gdx.gl11.glRotatef(rotate_angle, 1, 1, 1);
+			
+				// MERCURY
 				// still at original point, move from there to new drawing point
-				Gdx.gl11.glTranslatef(20.0f, -10.0f, 0f);
+				Gdx.gl11.glTranslatef(0.0f, 20.0f, 0.0f);
 				// scale down before drawing smaller planet
 				Gdx.gl11.glScalef(0.382f, 0.382f, 0.382f);
 				//Gdx.gl11.glRotatef(rotate_angle, 1, 1, 1);
 				mercury.draw();
-				
 				// return scale to original size
 				Gdx.gl11.glScalef(2.618f, 2.618f, 2.618f);
 				// return to point of origin
-				Gdx.gl11.glTranslatef(-20.0f, 10.0f, 0f);
-				// move to a new drawing point
-				Gdx.gl11.glTranslatef(20.2f, 1.0f, 0f);
+				Gdx.gl11.glTranslatef(0.0f, -20.0f, 0.0f);
 				
-				//Gdx.gl11.glScalef(0.25f, 0.25f, 0.25f);
+				// VENUS
+				// move to a new drawing point
+				Gdx.gl11.glTranslatef(20.0f, 20.0f, 10.0f);
 				// scale to draw a new planet
 				Gdx.gl11.glScalef(0.949f, 0.949f, 0.949f);
 				venus.draw();
-				
+				// return scale to original size				
 				Gdx.gl11.glScalef(1.054f, 1.054f, 1.054f);
-				Gdx.gl11.glTranslatef(8.0f,  0f, 0f);
-				Gdx.gl11.glRotatef(45, 0, 10, 0);
-				earth.draw();
+				// return to origin
+				Gdx.gl11.glTranslatef(-20.0f, -20.0f, -10.0f);
 				
-				Gdx.gl11.glTranslatef(2.0f, 2.0f, 1.5f);
-				Gdx.gl11.glScalef(0.23f, 0.23f, 0.23f);
-				moon.draw();
+				// EARTH
+				// no scaling needed for earth
+				Gdx.gl11.glPushMatrix();
+					Gdx.gl11.glTranslatef(20.0f,  0f, 0f);
+					// turn the "night" part of earth away from the sun
+					Gdx.gl11.glRotatef(60, 0, 10, 0);
+					earth.draw();
+					// make the moon rotate around earth
+					Gdx.gl11.glRotatef(rotate_angle, 0, 0, 1);
+					//Gdx.gl11.glTranslatef(-20.0f,  0f, 0f);
 				
-				Gdx.gl11.glScalef(4.348f, 4.348f, 4.348f);
-				Gdx.gl11.glTranslatef(5.0f, -2.0f, -1.5f);
+					// THE MOON
+					Gdx.gl11.glTranslatef(1.0f, 2.0f, 1.5f);
+					Gdx.gl11.glScalef(0.23f, 0.23f, 0.23f);
+					moon.draw();
+					Gdx.gl11.glScalef(4.348f, 4.348f, 4.348f);
+					Gdx.gl11.glTranslatef(-21.0f, -2.0f, -1.5f);
+				Gdx.gl11.glPopMatrix();
+				
+				// MARS
+				Gdx.gl11.glTranslatef(20.0f, -5.0f, -10.0f);
 				Gdx.gl11.glScalef(0.532f, 0.532f, 0.532f);
 				mars.draw();
-				
 				Gdx.gl11.glScalef(1.88f, 1.88f, 1.88f);
-				Gdx.gl11.glTranslatef(22.0f, 0f, 0f);
+				Gdx.gl11.glTranslatef(-20.0f, 5.0f, 10.0f);
+				
+				// JUPITER
+				Gdx.gl11.glDisable(GL11.GL_LIGHTING);
+				Gdx.gl11.glTranslatef(5.0f, -30.0f, 0.0f);
 				Gdx.gl11.glScalef(11.209f, 11.209f, 11.209f);
+				Gdx.gl11.glRotatef(60, 0, 10, 0);
 				jupiter.draw();
-				
 				Gdx.gl11.glScalef(0.089f, 0.089f, 0.089f);
-				Gdx.gl11.glTranslatef(35.0f, 0f, 0f);
-				Gdx.gl11.glScalef(9.449f, 9.449f, 9.449f);
-				saturn.draw();
-				Gdx.gl11.glScalef(4.1f, 4.1f, 4.1f);
-				rings.draw();
+				Gdx.gl11.glTranslatef(-5.0f, 30.0f, 0.0f);
+				Gdx.gl11.glEnable(GL11.GL_LIGHTING);
 
+				// URANUS
+				Gdx.gl11.glTranslatef(-5.0f, -20.0f, 10.0f);
 				Gdx.gl11.glScalef(0.026f, 0.026f, 0.026f);
-				Gdx.gl11.glTranslatef(25.0f, 0f, 0f);
-				Gdx.gl11.glScalef(4.007f, 4.007f, 4.007f);
 				uranus.draw();
-				
-				Gdx.gl11.glScalef(0.25f, 0.25f, 0.25f);
-				Gdx.gl11.glTranslatef(15.0f, 0f, 0f);
-				Gdx.gl11.glScalef(3.883f, 3.883f, 3.883f);
+				Gdx.gl11.glScalef(38.46f, 38.46f, 38.46f);
+				Gdx.gl11.glTranslatef(5.0f, 20.0f, -10.0f);
+								
+				// NEPTUNE
+				Gdx.gl11.glTranslatef(-20.0f, 0.0f, 0.0f);
+				Gdx.gl11.glScalef(0.25f, 0.25f, 0.25f);				
 				neptune.draw();
+				Gdx.gl11.glScalef(4f, 4f, 4f);
+				Gdx.gl11.glTranslatef(20.0f, 0.0f, 0.0f);
 				
-				Gdx.gl11.glScalef(0.258f, 0.258f, 0.258f);
-				Gdx.gl11.glTranslatef(10.0f, 0f, 0f);
+				// PLUTO
+				Gdx.gl11.glTranslatef(-20.0f, 5.0f, -10.0f);
 				Gdx.gl11.glScalef(0.18f, 0.18f, 0.18f);
 				pluto.draw();
+				Gdx.gl11.glScalef(5.56f, 5.56f, 5.56f);
+				Gdx.gl11.glTranslatef(20.0f, -5.0f, 10.0f);
+				
+				// SATURN AND IT'S RINGS
+				Gdx.gl11.glDisable(GL11.GL_LIGHTING);
+				Gdx.gl11.glTranslatef(-5.0f, 30.0f, 0.0f);
+				Gdx.gl11.glScalef(9.449f, 9.449f, 9.449f);
+				saturn.draw();
+				Gdx.gl11.glScalef(4.5f, 4.5f, 4.5f);
+				rings.draw();
 			Gdx.gl11.glPopMatrix();
 		Gdx.gl11.glPopMatrix();
 	}
