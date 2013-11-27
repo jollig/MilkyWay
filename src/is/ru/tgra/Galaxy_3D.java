@@ -221,7 +221,7 @@ public class Galaxy_3D implements ApplicationListener, InputProcessor {
 		//Gdx.gl11.glLightfv(GL11.GL_LIGHT2, GL11.GL_AMBIENT, new float[] { 0.2f, 0.2f, 0.2f, 1.0f }, 0);
 		
 		Gdx.gl11.glPushMatrix();
-			// sun drawn without lighting		
+			// sun drawn without lighting so it can be illuminated and give the effecto of a light source in our galaxy		
 			Gdx.gl11.glDisable(GL11.GL_LIGHTING);
 			//Gdx.gl11.glTranslatef(0f, 0f, 0f);
 			Gdx.gl11.glScalef(10.9f, 10.9f, 10.9f);
@@ -231,18 +231,22 @@ public class Galaxy_3D implements ApplicationListener, InputProcessor {
 			// scale down to original sizes
 			Gdx.gl11.glScalef(0.092f, 0.092f, 0.092f);
 			
-			// not working properly - the idea to make the big universe follow the camera to appear still affects all the rest
+			// not working properly - the idea is to make the universe follow the camera to appear still (affects all the rest)
+			// this would also allow the drawing to be smaller and save resources
 			//Gdx.gl11.glTranslatef(this.cam.getEye().x, this.cam.getEye().y, this.cam.getEye().z);
 			//Gdx.gl11.glTranslatef(0, 0, 0);
+			
 			// scale up to draw the universe
 			Gdx.gl11.glScalef(50.0f, 50.0f, 50.0f);
 			stars.draw();
+			// scale back down to original size
+			Gdx.gl11.glScalef(0.02f, 0.02f, 0.02f);
 			
-			//Gdx.gl11.glScalef(0.02f, 0.02f, 0.02f);
-			
-			// lighting enabled at suns position to light up the galaxy
+			// lighting enabled
 			Gdx.gl11.glEnable(GL11.GL_LIGHTING);
+			
 			// Configure light 0
+			// the sun is the center of the galaxy and the light source. it casts light upon all the planets
 			float[] lightDiffuse = {1.0f, 1.0f, 1.0f, 0.0f};
 			Gdx.gl11.glLightfv(GL11.GL_LIGHT0, GL11.GL_DIFFUSE, lightDiffuse, 0);
 			float[] lightPosition = {0f, 0f, 0f, 1.0f};
@@ -251,40 +255,21 @@ public class Galaxy_3D implements ApplicationListener, InputProcessor {
 			Gdx.gl11.glLightfv(GL11.GL_LIGHT0, GL11.GL_AMBIENT, lightAmbience, 0);
 			
 			// Configure light 1
+			// a faint light is also positioned behind earth. this gives an effect of night lights in cities in North America for example
 			float[] lightDiffuse1 = {0.1f, 0.1f, 0.1f, 1.0f};
 			Gdx.gl11.glLightfv(GL11.GL_LIGHT1, GL11.GL_DIFFUSE, lightDiffuse1, 0);
 			float[] lightPosition1 = {50.0f, 0.0f, 0.0f, 0f};
 			Gdx.gl11.glLightfv(GL11.GL_LIGHT1, GL11.GL_POSITION, lightPosition1, 0);
 			
-			Gdx.gl11.glPushMatrix();
-			/*	Gdx.gl11.glTranslatef(cam.getEye().x, cam.getEye().y, cam.getEye().z);
-				Gdx.gl11.glScalef(3.0f, 3.0f, 3.0f);
-				stars.draw();
-			
-				Gdx.gl11.glTranslatef(0f, 0f, 0f);
-				Gdx.gl11.glScalef(1.0f, 1.0f, 1.0f);
-				sun.draw();*/
-				
-				// ekki að gera sig. öll model sem ég prófa fokka öllu upp
-				//Gdx.gl11.glTranslatef(8.0f, 1.5f, 0);
-				//Gdx.gl11.glRotatef(180, 0, 1, 0);
-				//model.render();
-
-				//Gdx.gl11.glTranslatef(-18.0f, -1.5f, 0);
-				//Gdx.gl11.glScalef(0.092f, 0.092f, 0.092f);
-				//Gdx.gl11.glScalef(0.067f, 0.067f, 0.067f);
-					
-				// scale back down to original size
-				//Gdx.gl11.glScalef(0.02f, 0.02f, 0.02f);
-				// ekki að gera sig. öll model sem ég prófa fokka öllu upp
+			Gdx.gl11.glPushMatrix();				
+				// ekki að gera sig. öll model sem ég prófa (nema Batman) fokkast upp
 				//Gdx.gl11.glTranslatef(20.0f, 1.5f, 0);
-				//Gdx.gl11.glRotatef(180, 0, 1, 0);
 				//model.render();
 				//Gdx.gl11.glTranslatef(-20.0f, -1.5f, 0);
 					
-				// scale back down to original size
-				Gdx.gl11.glScalef(0.02f, 0.02f, 0.02f);
+				
 				// rotate planet around origin, the sun
+				// find a way to stop the rest from spinning
 				//Gdx.gl11.glRotatef(rotate_angle, 1, 1, 1);
 				// still at original point, move from there to new drawing point
 				Gdx.gl11.glTranslatef(20.0f, -10.0f, 0f);
